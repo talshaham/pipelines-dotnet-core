@@ -10,13 +10,9 @@ pool:
   name: default
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
+- task: NuGetToolInstaller@1
   inputs:
-    version: 8.x
-    performMultiLevelLookup: true
-    includePreviewVersions: true # Required for preview versions
-
+    versionSpec: 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -28,3 +24,6 @@ steps:
     command: 'build'
     arguments: '--configuration $(buildConfiguration)'
   displayName: 'dotnet build $(buildConfiguration)'
+  condition: 
+
+
