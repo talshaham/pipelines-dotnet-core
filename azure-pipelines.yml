@@ -20,7 +20,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: '/home/tal/Desktop/myagent/_work/4/s/pipelines-dotnet-core.csproj'
+    packagesToPack: '**/*.csproj'
     nobuild: true
     versioningScheme: 'off'
 
