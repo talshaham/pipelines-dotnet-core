@@ -23,3 +23,10 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
 
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: $(System.DefaultWorkingDirectory)/bin/$(buildConfiguration)/net6.0
+    artifactName: pipelines-dotnet-core.dll
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
