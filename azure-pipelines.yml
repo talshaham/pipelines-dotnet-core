@@ -21,6 +21,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '/home/tal/Desktop/myagent/_work/4/s/pipelines-dotnet-core.csproj'
+    nobuild: true
     versioningScheme: 'off'
 
 
