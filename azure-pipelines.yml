@@ -17,13 +17,9 @@ steps:
     projects: '/home/tal/Desktop/myagent/_work/4/s/pipelines-dotnet-core.csproj'
   displayName: 'Build'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    nobuild: true
-    versioningScheme: 'off'
 
+- script: dotnet pack -p Version=1.0.$(Build.BuildId) /home/tal/Desktop/myagent/_work/4/s/pipelines-dotnet-core.csproj
+  displayName: 'Package' 
 
 - script: dotnet nuget push --source "talso12345" --api-key az /home/tal/Desktop/myagent/_work/4/s/bin/Release/pipelines-dotnet-core.1.0.0.nupkg
   displayName: 'publish NuGet Package'
