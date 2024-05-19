@@ -10,6 +10,14 @@ pool:
   name: default
 
 steps:
+
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'sonarqube_connection'
+    scannerMode: 'MSBuild'
+    projectKey: 'sasha_sasha_7fee1857-2b89-4147-8fc6-ed28b418c105'
+    projectName: 'sonarqube_before_build'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
@@ -17,9 +25,16 @@ steps:
     projects: '/home/tal/Desktop/myagent/_work/4/s/pipelines-dotnet-core.csproj'
   displayName: 'Build'
 
+- task: SonarQubeAnalyze@5
+  inputs:
+    jdkversion: 'JAVA_HOME_11_X64'
 
 - script: dotnet pack -p Version=1.0.$(Build.BuildId) /home/tal/Desktop/myagent/_work/4/s/pipelines-dotnet-core.csproj
   displayName: 'Package' 
 
 - script: dotnet nuget push --source "talso12345" --api-key az /home/tal/Desktop/myagent/_work/4/s/bin/Release/pipelines-dotnet-core.1.0.$(Build.BuildId).nupkg
   displayName: 'publish NuGet Package'
+
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
