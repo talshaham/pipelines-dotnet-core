@@ -23,13 +23,6 @@ steps:
     packagesToPack: '**/*.csproj'
     versioningScheme: 'off'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/bin/$(buildConfiguration)/net6.0
-    artifactName: pipelines-dotnet-core.dll
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
 
 - script: dotnet nuget push --source "https://pkgs.dev.azure.com/talso12345/_packaging/talso12345/nuget/v3/index.json" --api-key az /home/tal/Desktop/myagent/_work/4/s/bin/Release/pipelines-dotnet-core.1.0.0.nupkg
   displayName: 'publish NuGet Package'
