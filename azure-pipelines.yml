@@ -11,6 +11,11 @@ pool:
 
 steps:
 
+- script: |
+    echo "##[section]Printing Build Number"
+    echo "Build Number: $(Build.BuildId)"
+  displayName: 'Print Build Number'
+
 - task: SonarQubePrepare@5
   inputs:
     SonarQube: 'sonarqube_connection'
@@ -38,3 +43,5 @@ steps:
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
+
+
